@@ -9,9 +9,13 @@ import React from "react";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { defaultStyles } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+import { useSSO } from "@clerk/clerk-expo";
 
 const Page = () => {
   useWarmUpBrowser();
+
+// const { startSSOFlow } = useSSO({});
   return (
     <View style={styles.container}>
       <TextInput
@@ -40,6 +44,40 @@ const Page = () => {
             borderBottomWidth: StyleSheet.hairlineWidth,
           }}
         />
+      </View>
+
+      <View style={{ gap: 20 }}>
+        <TouchableOpacity style={styles.btnOutline}>
+          <Ionicons
+            name="call-outline"
+            style={defaultStyles.btnIcon}
+            size={24}
+          />
+          <Text style={styles.btnOutlineText}>Continue with Phone</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.btnOutline}>
+          <Ionicons name="logo-apple" style={defaultStyles.btnIcon} size={24} />
+          <Text style={styles.btnOutlineText}>Continue with Apple</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.btnOutline}>
+          <Ionicons
+            name="logo-google"
+            style={defaultStyles.btnIcon}
+            size={24}
+          />
+          <Text style={styles.btnOutlineText}>Continue with Google</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.btnOutline}>
+          <Ionicons
+            name="logo-facebook"
+            style={defaultStyles.btnIcon}
+            size={24}
+          />
+          <Text style={styles.btnOutlineText}>Continue with Facebook</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
