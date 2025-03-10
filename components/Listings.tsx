@@ -1,12 +1,38 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, FlatList, ListRenderItem } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "expo-router";
 
-const Listings = () => {
-  return (
-    <View>
-      <Text>Listings</Text>
-    </View>
-  )
+interface Props {
+  listings: any[];
+  category: string;
 }
 
-export default Listings
+const Listings = ({ listings: items, category }: Props) => {
+  const [loading, setLoading] = useState(false);
+  const listRef = useRef<FlatList>(null);
+
+  useEffect(() => {
+    console.log("RELOAD_LISTINGS");
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  }, [category]);
+  
+
+  const renderRow: ListRenderItem<any> = ({ item }) => (
+    <Link href={`/listing/${item.id}`}>Go there</Link>
+  );
+  return (
+    <View>
+      <FlatList
+        renderItem={renderRow}
+        ref={listRef}
+        data={loading ? [] : items}
+      />
+    </View>
+  );
+};
+
+export default Listings;
