@@ -10,7 +10,8 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-
+import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
+import { Listing } from "@/interfaces/listing";
 interface Props {
   listings: any[];
   category: string;
@@ -29,11 +30,15 @@ const Listings = ({ listings: items, category }: Props) => {
     }, 200);
   }, [category]);
 
-  const renderRow: ListRenderItem<any> = ({ item }) => (
+  const renderRow: ListRenderItem<Listing> = ({ item }) => (
     <Link href={`/listing/${item.id}`} asChild>
       <TouchableOpacity>
-        <View style={styles.listing}>
-          <Image source={{ uri: item.medium_url }} />
+        <Animated.View
+          style={styles.listing}
+          entering={FadeInRight}
+          exiting={FadeOutLeft}
+        >
+          <Image source={{ uri: item.medium_url }} style={styles.image} />
           <TouchableOpacity
             style={{ position: "absolute", right: 30, top: 30 }}
           >
@@ -56,11 +61,11 @@ const Listings = ({ listings: items, category }: Props) => {
 
           <Text style={{ fontFamily: "mon" }}>{item.room_type}</Text>
 
-          <View style={{ flexDirection: 'row', gap: 4}}>
-            <Text style={{ fontFamily: 'mon-sb'}}>$ {item.price}</Text>
-            <Text style={{fontFamily: 'mon'}}>night</Text>
+          <View style={{ flexDirection: "row", gap: 4 }}>
+            <Text style={{ fontFamily: "mon-sb" }}>$ {item.price}</Text>
+            <Text style={{ fontFamily: "mon" }}>night</Text>
           </View>
-        </View>
+        </Animated.View>
       </TouchableOpacity>
     </Link>
   );

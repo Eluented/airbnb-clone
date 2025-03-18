@@ -78,7 +78,6 @@ function RootLayoutNav() {
   const { isLoaded, isSignedIn } = useAuth();
 
   const router = useRouter();
- 
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
@@ -103,7 +102,10 @@ function RootLayoutNav() {
         }}
       />
 
-      <Stack.Screen name="listing/[id]" options={{ headerTitle: "" }} />
+      <Stack.Screen
+        name="listing/[id]"
+        options={{ headerTitle: "", headerTransparent: true }}
+      />
       <Stack.Screen
         name="(modals)/booking"
         options={{
